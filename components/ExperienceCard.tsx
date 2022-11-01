@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
-type Props = {};
+import { Experience } from "../typings";
+import { urlFor } from "../sanity";
+type Props = { experience: Experience };
 
-export default function ExperienceCard({}: Props) {
+export default function ExperienceCard({ experience }: Props) {
   return (
     <article
       className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0
@@ -14,27 +16,34 @@ export default function ExperienceCard({}: Props) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="w-16 h-16 mb-0 rounded-full xl:w-[75px] xl:h-[75px] object-cover object-center"
-        src="/tcs.png"
+        src={urlFor(experience?.companyImage).url()}
       />
       <div className="px-0 md:px-10">
-        <h4 className="text-2xl font-light uppercase">Full Stack Developer</h4>
+        <h4 className="text-2xl font-light uppercase">
+          {experience?.jobTitle}
+        </h4>
         <p className="font-bold text-1xl mt-1 uppercase">
-          Tata Consultancy Services
+          {experience.company}
         </p>
         <div className="flex space-x-2 my-1 mb-0">
-          <img className="h-8 w-8 rounded-full" src="/js.png" />
-          <img className="h-8 w-8 rounded-full" src="/js.png" />
-          <img className="h-8 w-8 rounded-full" src="/js.png" />
+          {experience.technologies.map((technology) => (
+            <img
+              key={technology._id}
+              className="h-10 w-10 rounded-full"
+              src={urlFor(technology.image).url()}
+            />
+          ))}
         </div>
         <p className="uppercase py-2 text-gray-300">
-          Started work... - Ended...
+          {new Date(experience.dateStarted).toDateString()} -{" "}
+          {experience.isCurrentlyWorkingHere
+            ? "present"
+            : new Date(experience.dateEnded).toDateString()}
         </p>
-        <ul className="list-disc space-y-0 ml-5 text-lg">
-          <li>summary points summary points</li>
-          <li>summary points summary points</li>
-          <li>summary points summary points</li>
-          <li>summary points summary points</li>
-          <li>summary points summary points</li>
+        <ul className="list-disc space-y-0 ml-5 text-m max-w-42 ">
+          {experience.points.map((point, i) => (
+            <li key={i}>{point}</li>
+          ))}
         </ul>
       </div>
     </article>
