@@ -30,7 +30,7 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
     overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
     >
       <Head>
-        <title>{pageInfo?.name} - Portfolio</title>
+        <title>Uday-Portfolio</title>
       </Head>
       <Header socials={socials} />
       <section id="hero" className="snap-start">
