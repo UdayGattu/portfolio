@@ -3,12 +3,16 @@ import { motion } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
 import Link from "next/link";
-type Props = {};
+import { PageInfo } from "../typings";
+import { urlFor } from "../sanity";
+type Props = {
+  pageInfo: PageInfo;
+};
 
-export default function Hero({}: Props) {
+export default function Hero({ pageInfo }: Props) {
   const [text, count] = useTypewriter({
     words: [
-      "Hi, The Name's Uday Shankar Gattu",
+      `Hi, The Name's ${pageInfo?.name}`,
       "Guy-Who-loves-Anime.tsx",
       "<ButLovesToCodeMore />",
     ],
@@ -20,11 +24,11 @@ export default function Hero({}: Props) {
       <BackgroundCircles />
       <img
         className="relative rounded-full h-32 w-32 mx-auto object-cover items-center"
-        src="https://media-exp1.licdn.com/dms/image/D5603AQG70v5S8-HtuQ/profile-displayphoto-shrink_400_400/0/1666469441299?e=1672272000&v=beta&t=Z9wLtb0SVRCQgJsuRl8JhJUPfTOFmXukK-QLC00mngM"
+        src={urlFor(pageInfo?.heroImage).url()}
       />
       <div className="z-20">
         <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">
-          Software Engineer
+          {pageInfo?.role}
         </h2>
         <h1 className="text-5xl lg:text-6xl font-semibold px-10">
           <span className="mr-3">{text}</span>
@@ -42,9 +46,6 @@ export default function Hero({}: Props) {
           </Link>
           <Link href="#projects">
             <button className="heroButton">Projects</button>
-          </Link>
-          <Link href="#certifications">
-            <button className="heroButton">Certifications</button>
           </Link>
         </div>
       </div>
