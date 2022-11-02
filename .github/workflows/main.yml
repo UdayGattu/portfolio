@@ -1,2 +1,0 @@
-- name: Deploy to Vercel Action
-  uses: BetaHuhn/deploy-to-vercel-action@v1.7.1
